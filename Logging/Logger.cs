@@ -8,7 +8,7 @@ namespace Logging
         {
             Console.Write($"[{DateTime.UtcNow}] ");
             Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.Write($"Debug");
+            Console.Write($" Debug ");
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine($" {message}");
         }
@@ -17,7 +17,7 @@ namespace Logging
         {
             Console.Write($"[{DateTime.UtcNow}] ");
             Console.BackgroundColor = ConsoleColor.DarkYellow;
-            Console.Write($"Warning");
+            Console.Write($" Warning ");
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine($" {message}");
         }
@@ -25,8 +25,8 @@ namespace Logging
         public static void Error(string message)
         {
             Console.Write($"[{DateTime.UtcNow}] ");
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.Write($"Error");
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+            Console.Write($" Error ");
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine($" {message}");
         }
@@ -34,8 +34,8 @@ namespace Logging
         public static void Information(string message)
         {
             Console.Write($"[{DateTime.UtcNow}] ");
-            Console.BackgroundColor = ConsoleColor.Green;
-            Console.Write($"Information");
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+            Console.Write($" Information ");
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine($" {message}");
         }
