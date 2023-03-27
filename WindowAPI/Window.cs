@@ -2,11 +2,16 @@
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace WindowAPI
 {
     public class Window : GameWindow
     {
+        public Action<FrameEventArgs>? OnUpdateFrameEvent;
+        public Action<KeyboardState>? KeyboardEvent;
+        public Action<Window>? OnRenderFrameEvent;
+
         public Window(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) 
             : base(gameWindowSettings, nativeWindowSettings)
         {
@@ -28,12 +33,22 @@ namespace WindowAPI
 
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
+            KeyboardEvent?.Invoke(KeyboardState);
+            OnUpdateFrameEvent?.Invoke(args);
+
+            if (KeyboardState.IsKeyDown(Keys.Escape))
+            {
+                Close();
+            }
+
             base.OnUpdateFrame(args);
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
+
+            OnRenderFrameEvent?.Invoke(this);
 
             SwapBuffers();
             base.OnRenderFrame(args);
@@ -42,6 +57,13 @@ namespace WindowAPI
         protected override void OnUnload()
         {
             base.OnUnload();
+        }
+
+        public override void Close()
+        {
+            Logger.Information("App has been closed");
+
+            base.Close();
         }
     }
 }

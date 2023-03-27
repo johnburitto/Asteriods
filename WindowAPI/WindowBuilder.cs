@@ -79,9 +79,17 @@ namespace WindowAPI
             return this;
         }
 
+        public WindowBuilder WithVsync()
+        {
+            _window = _window ?? new Window(GameWindowSettings.Default, _settings);
+            _window.VSync = VSyncMode.On;
+
+            return this;    
+        }
+
         public Window Buid()
         {
-            _window = new Window(GameWindowSettings.Default, _settings);
+            _window = _window ?? new Window(GameWindowSettings.Default, _settings);
 
             return _window;
         }

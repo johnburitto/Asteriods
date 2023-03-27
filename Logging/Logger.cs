@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Logging
+﻿namespace Logging
 {
     public static class Logger
     {
