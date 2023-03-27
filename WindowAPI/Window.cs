@@ -1,7 +1,7 @@
-﻿using OpenTK.Graphics.OpenGL4;
+﻿using Logging;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
-using WindowAPI;
 
 namespace WindowAPI
 {
@@ -10,7 +10,10 @@ namespace WindowAPI
         public Window(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) 
             : base(gameWindowSettings, nativeWindowSettings)
         {
-            
+            Logger.Debug(GL.GetString(StringName.Version));
+            Logger.Debug(GL.GetString(StringName.Vendor));
+            Logger.Debug(GL.GetString(StringName.Renderer));
+            Logger.Debug(GL.GetString(StringName.ShadingLanguageVersion));
         }
 
         protected override void OnLoad()
