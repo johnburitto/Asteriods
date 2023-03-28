@@ -1,5 +1,7 @@
 ﻿using OpenTK.Mathematics;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Desktop;
+
 namespace Core
 {
     public abstract class GameObject
@@ -17,12 +19,12 @@ namespace Core
 
         }
 
-        public virtual void Update(KeyboardState state)
+        public virtual void Update(GameWindow window, FrameEventArgs args)
         {
 
         }
 
-        public virtual void Render(WindowAPI.Window window)
+        public virtual void Render(GameWindow window)
         {
 
         }

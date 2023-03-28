@@ -1,11 +1,11 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using WindowAPI;
+using OpenTK.Windowing.Desktop;
 
 namespace Core
 {
     public static class PrimitiveRenderer
     {
-        public static void RenderLineLoop(GameObject obj, Window window)
+        public static void RenderLineLoop(GameObject obj, GameWindow window)
         {
             GL.Begin(PrimitiveType.LineLoop);
 

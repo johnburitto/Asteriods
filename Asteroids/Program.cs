@@ -8,6 +8,8 @@ float frameTime = 0;
 int fps = 0;
 var player = new Player();
 
+player.Speed = 10;
+
 var builder = new WindowBuilder();
 var window = builder
     .WithSize(1920, 1080)
@@ -23,12 +25,12 @@ var window = builder
     .Buid();
 
 window.OnUpdateFrameEvent += FPSCounter;
-window.KeyboardEvent += player.Update;
+window.OnUpdateFrameEvent += player.Update;
 window.OnRenderFrameEvent += player.Render;
 
 window.Run();
 
-void FPSCounter(FrameEventArgs args)
+void FPSCounter(WindowAPI.Window window, FrameEventArgs args)
 {
     frameTime += (float)args.Time;
     fps++;

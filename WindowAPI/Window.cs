@@ -8,8 +8,7 @@ namespace WindowAPI
 {
     public class Window : GameWindow
     {
-        public Action<FrameEventArgs>? OnUpdateFrameEvent;
-        public Action<KeyboardState>? KeyboardEvent;
+        public Action<Window, FrameEventArgs>? OnUpdateFrameEvent;
         public Action<Window>? OnRenderFrameEvent;
 
         public Window(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) 
@@ -33,8 +32,7 @@ namespace WindowAPI
 
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
-            KeyboardEvent?.Invoke(KeyboardState);
-            OnUpdateFrameEvent?.Invoke(args);
+            OnUpdateFrameEvent?.Invoke(this, args);
 
             if (KeyboardState.IsKeyDown(Keys.Escape))
             {
