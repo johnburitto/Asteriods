@@ -2,10 +2,7 @@
 using OpenTK.Windowing.Common;
 using Logging;
 using Asteroids;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 
-float frameTime = 0;
-int fps = 0;
 var player = new Player();
 
 player.Speed = 10;
@@ -24,22 +21,8 @@ var window = builder
     .WithVsync()
     .Buid();
 
-window.OnUpdateFrameEvent += FPSCounter;
+window.OnUpdateFrameEvent += GameUtils.FPSCounter;
 window.OnUpdateFrameEvent += player.Update;
 window.OnRenderFrameEvent += player.Render;
 
 window.Run();
-
-void FPSCounter(WindowAPI.Window window, FrameEventArgs args)
-{
-    frameTime += (float)args.Time;
-    fps++;
-
-    if (frameTime > 1.0f)
-    {
-        Logger.Debug($"FPS => {fps}");
-        
-        fps = 0;
-        frameTime = 0.0f;
-    }
-}

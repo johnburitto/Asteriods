@@ -7,7 +7,7 @@ namespace Core
     public abstract class GameObject
     {
         public Transform Position;
-        public List<Vector2i>? Points;
+        public List<Vector2>? Points;
 
         protected virtual void Awake()
         {
