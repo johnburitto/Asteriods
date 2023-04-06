@@ -1,5 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.Desktop;
+using System.Drawing;
 
 namespace Core
 {
@@ -16,6 +17,21 @@ namespace Core
             }
 
             GL.End();
+        }
+
+        public static void RenderCollider(Collider collider, Transform position, GameWindow window)
+        {
+            GL.Color3(Color.Green);
+            GL.Begin(PrimitiveType.LineLoop);
+
+            for (int i = 0; i < collider.Points.Count; i++)
+            {
+                GL.Vertex2((position.X + collider.Points[i].X) / window.Size.X,
+                    (position.Y + collider.Points[i].Y) / window.Size.Y);
+            }
+
+            GL.End();
+            GL.Color3(Color.White);
         }
     }
 }

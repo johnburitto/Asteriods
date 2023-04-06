@@ -7,6 +7,8 @@ namespace Asteroids
 {
     internal class Asteroid : GameObject
     {
+        public Collider Collider { get; set; }
+
         public Asteroid()
         {
             Awake();
@@ -16,6 +18,7 @@ namespace Asteroids
         protected override void Awake()
         {
             Points = new List<Vector2>();
+            Collider = new Collider();
         }
 
         protected override void Create()
@@ -29,6 +32,10 @@ namespace Asteroids
             Points?.Add(new(50, 100));
             Points?.Add(new(-50, 100));
             Points?.Add(new(-100, 0));
+
+            Collider.X = 200;
+            Collider.Y = 200;
+            Collider.InitPoints();
         }
 
         public override void Update(GameWindow window, FrameEventArgs args)
@@ -39,6 +46,7 @@ namespace Asteroids
         public override void Render(GameWindow window)
         {
             PrimitiveRenderer.RenderLineLoop(this, window);
+            PrimitiveRenderer.RenderCollider(Collider, Position, window);
         }
     }
 }

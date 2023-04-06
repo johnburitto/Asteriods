@@ -1,8 +1,6 @@
 ﻿using WindowAPI;
 using OpenTK.Windowing.Common;
 using Asteroids;
-using Core;
-using Logging;
 
 var player = new Player();
 var asteroidsPool = new AsteroidsPool();
@@ -22,9 +20,11 @@ var window = builder
 
 player.Speed = 10;
 asteroidsPool.InitItems(3, window);
+asteroidsPool.Player = player;
 
 window.OnUpdateFrameEvent += GameUtils.FPSCounter;
 window.OnUpdateFrameEvent += player.Update;
+window.OnUpdateFrameEvent += asteroidsPool.UpdateElements;
 window.OnRenderFrameEvent += player.Render;
 window.OnRenderFrameEvent += asteroidsPool.RenderElements;
 

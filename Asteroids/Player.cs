@@ -11,6 +11,7 @@ namespace Asteroids
     {
         public float Speed { get; set; }
         public Vector2 SpeedVector = Vector2.Zero;
+        public Collider Collider { get; set; }
         private float _oldAngle;
 
         public Player()
@@ -21,6 +22,7 @@ namespace Asteroids
 
         protected override void Awake()
         {
+            Collider = new Collider();
             Points = new List<Vector2>();
         }
 
@@ -30,13 +32,18 @@ namespace Asteroids
             Points?.Add(new Vector2(0, -20));
             Points?.Add(new Vector2(30, -40));
             Points?.Add(new Vector2(0, 40));
+
+            Collider.X = 60;
+            Collider.Y = 80;
+            Collider.InitPoints();
         }
 
         public override void Update(GameWindow window, FrameEventArgs args)
         {
             CalculateAngle(window);
             MoveInput(window.KeyboardState);
-            Rotate();
+            Physic2D.RotateCollider(Collider, Position.Angle, ref _oldAngle);
+            Animator.Rotate(this, ref _oldAngle);
             CheckBorder(window);
             MovePlayer();
         }
@@ -44,6 +51,7 @@ namespace Asteroids
         public override void Render(GameWindow window)
         {
             PrimitiveRenderer.RenderLineLoop(this, window);
+            PrimitiveRenderer.RenderCollider(Collider, Position, window);
         }
 
         private void MoveInput(KeyboardState state)
@@ -110,19 +118,6 @@ namespace Asteroids
                 / (MathF.Sqrt(MathF.Pow(firstPosition.X, 2) + MathF.Pow(firstPosition.Y, 2)) * MathF.Sqrt(MathF.Pow(secondPosition.X, 2) + MathF.Pow(secondPosition.Y, 2))));
 
             Position.Angle = float.IsNaN(angle) ? 0 : firstPosition.X > 0 ? angle : 2 * MathF.PI - angle;
-        }
-
-        private void Rotate()
-        {
-            var cos = MathF.Cos(_oldAngle - Position.Angle);
-            var sin = MathF.Sin(_oldAngle - Position.Angle);
-
-            for (int i = 0; i < Points?.Count; i++)
-            {
-                Points[i] = new(Points[i].X * cos - Points[i].Y * sin, Points[i].X * sin + Points[i].Y * cos);
-            }
-
-            _oldAngle = Position.Angle;
         }
     }
 }
