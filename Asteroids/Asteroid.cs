@@ -23,8 +23,7 @@ namespace Asteroids
 
         protected override void Create()
         {
-            Position.X = 100;
-            Position.Y = 100;
+            Position.Angle = new Random().Next(1, 3) * 0.00001f;
 
             Points?.Add(new(-50, -100));
             Points?.Add(new(50, -100));
@@ -40,13 +39,13 @@ namespace Asteroids
 
         public override void Update(GameWindow window, FrameEventArgs args)
         {
-
+            Animator.Rotate(this);
         }
 
         public override void Render(GameWindow window)
         {
             PrimitiveRenderer.RenderLineLoop(this, window);
-            PrimitiveRenderer.RenderCollider(Collider, Position, window);
+            //PrimitiveRenderer.RenderCollider(Collider, Position, window);
         }
     }
 }

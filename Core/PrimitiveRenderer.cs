@@ -18,6 +18,19 @@ namespace Core
 
             GL.End();
         }
+        
+        public static void RenderLine(GameObject obj, GameWindow window)
+        {
+            GL.Begin(PrimitiveType.Lines);
+
+            for (int i = 0; i < obj.Points?.Count; i++)
+            {
+                GL.Vertex2((obj.Position.X + obj.Points[i].X) / window.Size.X, 
+                    (obj.Position.Y + obj.Points[i].Y) / window.Size.Y);
+            }
+
+            GL.End();
+        }
 
         public static void RenderCollider(Collider collider, Transform position, GameWindow window)
         {

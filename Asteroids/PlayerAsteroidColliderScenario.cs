@@ -19,10 +19,7 @@ namespace Asteroids
             if (firstMinX > secondMinX && firstMinX < secondMaxX && firstMinY > secondMinY && firstMinY < secondMaxY ||
                 firstMaxX > secondMinX && firstMaxX < secondMaxX && firstMaxY > secondMinY && firstMaxY < secondMaxY) 
             {
-                firstObj.Position.X = 0;
-                firstObj.Position.Y = 0;
-
-                secondObj.State = ItemState.Disable;
+                Game.RestartGame();
             }
         }
     }

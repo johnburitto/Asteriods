@@ -10,7 +10,7 @@ namespace Asteroids
     {
         public Player Player { get; set; }
         private Random _rnd = new Random();
-        private PlayerAsteroidColliderScenario _scenario = new PlayerAsteroidColliderScenario();
+        private PlayerAsteroidColliderScenario _playerScenario = new PlayerAsteroidColliderScenario();
 
         public override void InitItems(int number, GameWindow window)
         {
@@ -23,13 +23,15 @@ namespace Asteroids
             }
         }
 
-        public void UpdateElements(GameWindow window, FrameEventArgs args)
+        public void UpdateElements(Window window, FrameEventArgs args)
         {
             foreach (var el in Pool)
             {
+                window.OnUpdateFrameEvent += el.Object.Update;
+
                 if (el.State == ItemState.Rendering)
                 {
-                    Physic2D.CheckColliding(_scenario, Player, el);
+                    Physic2D.CheckColliding(_playerScenario, Player, el);
                 }
             }
         }
@@ -47,6 +49,14 @@ namespace Asteroids
                 {
                     window.OnRenderFrameEvent -= el.Object.Render;
                 }
+            }
+        }
+
+        public void RestartPool()
+        {
+            foreach (var el in Pool)
+            {
+                el.State = ItemState.Enable;
             }
         }
     }

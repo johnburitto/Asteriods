@@ -14,5 +14,16 @@
 
             oldAngle = obj.Position.Angle;
         }
+        
+        public static void Rotate(GameObject obj) 
+        {
+            var cos = MathF.Cos(obj.Position.Angle);
+            var sin = MathF.Sin(obj.Position.Angle);
+
+            for (int i = 0; i < obj.Points?.Count; i++)
+            {
+                obj.Points[i] = new(obj.Points[i].X * cos - obj.Points[i].Y * sin, obj.Points[i].X * sin + obj.Points[i].Y * cos);
+            }
+        }
     }
 }

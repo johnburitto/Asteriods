@@ -1,5 +1,4 @@
 ﻿using Core;
-using Logging;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
@@ -12,6 +11,7 @@ namespace Asteroids
         public float Speed { get; set; }
         public Vector2 SpeedVector = Vector2.Zero;
         public Collider Collider { get; set; }
+        public Bullet Bullet { get; set; }
         private float _oldAngle;
 
         public Player()
@@ -51,7 +51,7 @@ namespace Asteroids
         public override void Render(GameWindow window)
         {
             PrimitiveRenderer.RenderLineLoop(this, window);
-            PrimitiveRenderer.RenderCollider(Collider, Position, window);
+            //PrimitiveRenderer.RenderCollider(Collider, Position, window);
         }
 
         private void MoveInput(KeyboardState state)
@@ -118,6 +118,12 @@ namespace Asteroids
                 / (MathF.Sqrt(MathF.Pow(firstPosition.X, 2) + MathF.Pow(firstPosition.Y, 2)) * MathF.Sqrt(MathF.Pow(secondPosition.X, 2) + MathF.Pow(secondPosition.Y, 2))));
 
             Position.Angle = float.IsNaN(angle) ? 0 : firstPosition.X > 0 ? angle : 2 * MathF.PI - angle;
+        }
+
+        public void RestartPlayer()
+        {
+            Position.X = 0;
+            Position.Y = 0;
         }
     }
 }
