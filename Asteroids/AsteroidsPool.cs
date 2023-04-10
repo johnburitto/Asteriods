@@ -9,8 +9,10 @@ namespace Asteroids
     internal class AsteroidsPool : ObjectPool<Asteroid>
     {
         public Player Player { get; set; }
+        public Bullet Bullet { get; set; }
         private Random _rnd = new Random();
         private PlayerAsteroidColliderScenario _playerScenario = new PlayerAsteroidColliderScenario();
+        private BulletAsteroidColliderScenario _bulletScenario = new BulletAsteroidColliderScenario();
 
         public override void InitItems(int number, GameWindow window)
         {
@@ -32,6 +34,7 @@ namespace Asteroids
                 if (el.State == ItemState.Rendering)
                 {
                     Physic2D.CheckColliding(_playerScenario, Player, el);
+                    Physic2D.CheckColliding(_bulletScenario, Bullet, el);
                 }
             }
         }

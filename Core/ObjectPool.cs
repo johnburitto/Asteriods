@@ -13,6 +13,8 @@ namespace Core
 
         public virtual void InitItems(int number, GameWindow window)
         {
+            Pool.Clear();
+
             for (int i = 0; i < number; i++)
             {
                 Pool.Add(new ObjectPoolItem<T>());

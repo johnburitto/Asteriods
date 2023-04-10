@@ -1,9 +1,7 @@
 ﻿using Core;
-using Logging;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Asteroids
 {
@@ -11,6 +9,9 @@ namespace Asteroids
     {
         public Collider Collider { get; set; }
         public BulletState State { get; set; }
+        public float Speed { get; set; }
+        public Vector2 SpeedVector { get; set; }
+        public float _oldAngle;
 
         public Bullet()
         {
@@ -28,13 +29,22 @@ namespace Asteroids
         {
             Points?.Add(new Vector2(0, -10));
             Points?.Add(new Vector2(0, 10));
+
+            SpeedVector = Vector2.UnitY;
+
+            Collider.X = 1;
+            Collider.Y = 20;
+            Collider.InitPoints();
         }
 
         public override void Update(GameWindow window, FrameEventArgs args)
         {
             if (State == BulletState.Render)
             {
-                Position.Y++;
+                SpeedVector = Physic2D.RotateVector(SpeedVector, Position.Angle, _oldAngle);
+                Animator.Rotate(this, ref _oldAngle);
+                CheckBorder(window);
+                MoveBullet();
             }
         }
 
@@ -43,12 +53,20 @@ namespace Asteroids
             if (State == BulletState.Render)
             {
                 PrimitiveRenderer.RenderLine(this, window);
+                //PrimitiveRenderer.RenderCollider(Collider, Position, window);
             }
         }
 
-        public void OnClick(MouseButtonEventArgs args)
+        private void CheckBorder(GameWindow window)
         {
-            State = args.Button == MouseButton.Left ? BulletState.Render : State;
+            State = (Position.X < -window.Size.X || Position.X > window.Size.X) ||
+                (Position.Y < -window.Size.Y || Position.Y > window.Size.Y) ? BulletState.Hide : State;
+        }
+
+        private void MoveBullet()
+        {
+            Position.X += SpeedVector.X * Speed;
+            Position.Y += SpeedVector.Y * Speed;
         }
     }
 

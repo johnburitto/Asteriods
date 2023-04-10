@@ -1,4 +1,5 @@
 ﻿using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Desktop;
 using WindowAPI;
 
 namespace Asteroids
@@ -9,6 +10,7 @@ namespace Asteroids
         private static Player? _player;
         private static Bullet? _bullet;
         private static AsteroidsPool? _asteroidsPool;
+        private static int _numberOfAsteroids = 3;
 
         public static void InitGame()
         {
@@ -28,12 +30,14 @@ namespace Asteroids
                 .WithVsync()
                 .Buid();
 
+            _bullet.Speed = 15;
             _player.Speed = 10;
             _player.Bullet = _bullet;
-            _asteroidsPool.InitItems(3, _window);
+            _asteroidsPool.InitItems(_numberOfAsteroids, _window);
             _asteroidsPool.Player = _player;
+            _asteroidsPool.Bullet = _bullet;
             
-            _window.MouseDown += _bullet.OnClick;
+            _window.MouseDown += _player.OnClick;
 
             _window.OnUpdateFrameEvent += GameUtils.FPSCounter;
             _window.OnUpdateFrameEvent += _player.Update;

@@ -1,4 +1,5 @@
 ﻿using Core;
+using Logging;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
@@ -40,9 +41,15 @@ namespace Asteroids
 
         public override void Update(GameWindow window, FrameEventArgs args)
         {
+            if (Bullet.State == BulletState.Hide)
+            {
+                Bullet.Position.X = Position.X;
+                Bullet.Position.Y = Position.Y;
+            }
+
             CalculateAngle(window);
             MoveInput(window.KeyboardState);
-            Physic2D.RotateCollider(Collider, Position.Angle, ref _oldAngle);
+            Physic2D.RotateCollider(Collider, Position.Angle, _oldAngle);
             Animator.Rotate(this, ref _oldAngle);
             CheckBorder(window);
             MovePlayer();
@@ -51,7 +58,7 @@ namespace Asteroids
         public override void Render(GameWindow window)
         {
             PrimitiveRenderer.RenderLineLoop(this, window);
-            //PrimitiveRenderer.RenderCollider(Collider, Position, window);
+            PrimitiveRenderer.RenderCollider(Collider, Position, window);
         }
 
         private void MoveInput(KeyboardState state)
@@ -124,6 +131,12 @@ namespace Asteroids
         {
             Position.X = 0;
             Position.Y = 0;
+        }
+
+        public void OnClick(MouseButtonEventArgs args)
+        {
+            Bullet.Position.Angle = Bullet.State == BulletState.Hide ? Position.Angle : Bullet.Position.Angle;
+            Bullet.State = args.Button == MouseButton.Left ? BulletState.Render : Bullet.State;
         }
     }
 }
