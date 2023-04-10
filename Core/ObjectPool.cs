@@ -5,6 +5,7 @@ namespace Core
     public class ObjectPool <T> where T : GameObject, new()
     {
         public List<ObjectPoolItem<T>> Pool { get; set; }
+        public bool IsAllObjectDisabled => IsAllDisabled();
 
         public ObjectPool()
         {
@@ -38,6 +39,19 @@ namespace Core
         public void DisableObject(T obj)
         {
             Pool.First(pObj => pObj.Object == obj).State = ItemState.Disable;
+        }
+
+        private bool IsAllDisabled()
+        {
+            foreach (var el in Pool)
+            {
+                if (el.State == ItemState.Enable || el.State == ItemState.Rendering)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 

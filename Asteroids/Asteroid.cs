@@ -45,7 +45,6 @@ namespace Asteroids
         public override void Render(GameWindow window)
         {
             PrimitiveRenderer.RenderLineLoop(this, window);
-            PrimitiveRenderer.RenderCollider(Collider, Position, window);
         }
     }
 }

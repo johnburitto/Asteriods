@@ -1,4 +1,5 @@
-﻿using OpenTK.Windowing.Common;
+﻿using Logging;
+using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using WindowAPI;
 
@@ -43,10 +44,10 @@ namespace Asteroids
             _window.OnUpdateFrameEvent += _player.Update;
             _window.OnUpdateFrameEvent += _bullet.Update;
             _window.OnUpdateFrameEvent += _asteroidsPool.UpdateElements;
+            _window.OnUpdateFrameEvent += NextLevel;
             _window.OnRenderFrameEvent += _player.Render;
             _window.OnRenderFrameEvent += _bullet.Render;
             _window.OnRenderFrameEvent += _asteroidsPool.RenderElements;
-
         }
 
         public static void StartGame()
@@ -58,6 +59,17 @@ namespace Asteroids
         {
             _player?.RestartPlayer();
             _asteroidsPool?.RestartPool();
+        }
+
+        private static void NextLevel(Window window, FrameEventArgs args)
+        {
+            if (_asteroidsPool.IsAllObjectDisabled)
+            {
+                _numberOfAsteroids++;
+                _player?.RestartPlayer();
+                _asteroidsPool?.RenderElements(window);
+                _asteroidsPool?.InitItems(_numberOfAsteroids, window);
+            }
         }
     }
 }

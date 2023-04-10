@@ -53,7 +53,6 @@ namespace Asteroids
             if (State == BulletState.Render)
             {
                 PrimitiveRenderer.RenderLine(this, window);
-                //PrimitiveRenderer.RenderCollider(Collider, Position, window);
             }
         }
 
