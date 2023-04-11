@@ -8,7 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\John Buritto\.nuget\packages\sharpfont.dependencies\2.6.0\build\..\bin\msvc10\x86\freetype6.dll" />
+    <Content Remove="C:\Users\John Buritto\.nuget\packages\sharpfont\4.0.0\build\..\config\SharpFont.dll.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="OpenTK" Version="4.7.7" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

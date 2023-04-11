@@ -20,8 +20,11 @@ namespace Asteroids
 
             foreach (var el in Pool)
             {
-                el.Object.Position.X = _rnd.Next(-window.Size.X, window.Size.X);
-                el.Object.Position.Y = _rnd.Next(-window.Size.Y, window.Size.Y);
+                int x = _rnd.Next(-window.Size.X, window.Size.X);
+                int y = _rnd.Next(-window.Size.Y, window.Size.Y);
+
+                el.Object.Position.X = x < 150 && x > 0 ? x + 150 : x < 0 && x > -150 ? x - 150 : x;
+                el.Object.Position.Y = y < 150 && y > 0 ? y + 150 : y < 0 && y > -150 ? y - 150 : y;
             }
         }
 
@@ -55,11 +58,13 @@ namespace Asteroids
             }
         }
 
-        public void RestartPool()
+        public void RestartPool(Window window)
         {
             foreach (var el in Pool)
             {
                 el.State = ItemState.Enable;
+
+                window.OnRenderFrameEvent -= el.Object.Render;
             }
         }
     }

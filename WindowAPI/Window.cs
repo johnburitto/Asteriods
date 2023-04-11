@@ -1,5 +1,5 @@
 ﻿using Logging;
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -33,7 +33,7 @@ namespace WindowAPI
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             OnUpdateFrameEvent?.Invoke(this, args);
-
+            
             if (KeyboardState.IsKeyDown(Keys.Escape))
             {
                 Close();

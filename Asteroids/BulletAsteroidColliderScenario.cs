@@ -1,4 +1,5 @@
 ﻿using Core;
+using WindowAPI;
 
 namespace Asteroids
 {
@@ -17,10 +18,13 @@ namespace Asteroids
             var secondMaxY = secondObj.Object.Collider.Points[2].Y + secondObj.Object.Position.Y;
 
             if (firstMinX > secondMinX && firstMinX < secondMaxX && firstMinY > secondMinY && firstMinY < secondMaxY ||
-                firstMaxX > secondMinX && firstMaxX < secondMaxX && firstMaxY > secondMinY && firstMaxY < secondMaxY)
+                firstMaxX > secondMinX && firstMaxX < secondMaxX && firstMaxY > secondMinY && firstMaxY < secondMaxY &&
+                firstObj.State == BulletState.Render)
             {
                 firstObj.State = BulletState.Hide;
                 secondObj.State = ItemState.Disable;
+
+                Game.Score += 100;
             }
         }
     }

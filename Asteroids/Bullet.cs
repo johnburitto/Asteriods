@@ -12,6 +12,7 @@ namespace Asteroids
         public float Speed { get; set; }
         public Vector2 SpeedVector { get; set; }
         public float _oldAngle;
+        public float _frameTime;
 
         public Bullet()
         {

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -6,6 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\John Buritto\.nuget\packages\sharpfont.dependencies\2.6.0\build\..\bin\msvc10\x86\freetype6.dll" />
+    <Content Remove="C:\Users\John Buritto\.nuget\packages\sharpfont\4.0.0\build\..\config\SharpFont.dll.config" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="OpenTK" Version="4.7.7" />

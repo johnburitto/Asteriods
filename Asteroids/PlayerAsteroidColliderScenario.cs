@@ -19,7 +19,9 @@ namespace Asteroids
             if (firstMinX > secondMinX && firstMinX < secondMaxX && firstMinY > secondMinY && firstMinY < secondMaxY ||
                 firstMaxX > secondMinX && firstMaxX < secondMaxX && firstMaxY > secondMinY && firstMaxY < secondMaxY) 
             {
-                Game.RestartGame();
+                Game.RestartLevel();
+
+                Game.Score -= 100;
             }
         }
     }
