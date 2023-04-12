@@ -3,7 +3,6 @@ using System.Runtime.Versioning;
 
 namespace Core
 {
-    [SupportedOSPlatform("windows")]
     public static class MediaSystem
     {
         public static void PlaySound(string name)

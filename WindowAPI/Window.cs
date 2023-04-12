@@ -10,6 +10,7 @@ namespace WindowAPI
     {
         public Action<Window, FrameEventArgs>? OnUpdateFrameEvent;
         public Action<Window>? OnRenderFrameEvent;
+        public Action? OnCloseEvent;
 
         public Window(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) 
             : base(gameWindowSettings, nativeWindowSettings)
@@ -59,6 +60,8 @@ namespace WindowAPI
 
         public override void Close()
         {
+            OnCloseEvent?.Invoke();
+
             Logger.Information("App has been closed");
 
             base.Close();

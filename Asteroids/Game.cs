@@ -11,8 +11,8 @@ namespace Asteroids
         private static Bullet? _bullet;
         private static AsteroidsPool? _asteroidsPool;
         private static int _numberOfAsteroids = 3;
-        
         public static int Score = 0;
+        public static int HightScore = 0;
 
         public static void InitGame()
         {
@@ -39,6 +39,8 @@ namespace Asteroids
             _asteroidsPool.Player = _player;
             _asteroidsPool.Bullet = _bullet;
 
+            HightScore = Int32.Parse(File.ReadAllText("hightScore.txt"));
+
             _window.MouseDown += _player.OnClick;
 
             _window.OnUpdateFrameEvent += GameUtils.FPSCounter;
@@ -52,6 +54,7 @@ namespace Asteroids
             _window.OnRenderFrameEvent += _asteroidsPool.RenderElements;
             _window.OnRenderFrameEvent += ParticleSystem.RenderPaticles;
             _window.OnRenderFrameEvent += ShowScore;
+            _window.OnCloseEvent += SaveScore;
         }
 
         public static void StartGame()
@@ -79,6 +82,12 @@ namespace Asteroids
         public static void ShowScore(Window window)
         {
             TextRenderer.RenderText(window, Score.ToString(), -window.Size.X + 50, window.Size.Y - 50);
+            TextRenderer.RenderText(window, HightScore.ToString(), -window.Size.X + 50, window.Size.Y - 100);
+        }
+
+        public static void SaveScore()
+        {
+            File.WriteAllText("hightScore.txt", Score.ToString());
         }
     }
 }
