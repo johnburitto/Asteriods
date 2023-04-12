@@ -28,8 +28,8 @@ namespace Asteroids
 
         protected override void Create()
         {
-            Points?.Add(new Vector2(0, -10));
-            Points?.Add(new Vector2(0, 10));
+            Points?.Add(new Vector2(0f, -10f));
+            Points?.Add(new Vector2(0f, 10f));
 
             SpeedVector = Vector2.UnitY;
 

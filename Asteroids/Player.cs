@@ -1,9 +1,9 @@
 ﻿using Core;
-using Logging;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.Runtime.Versioning;
 
 namespace Asteroids
 {
@@ -29,10 +29,10 @@ namespace Asteroids
 
         protected override void Create()
         {
-            Points?.Add(new Vector2(-30, -40));
-            Points?.Add(new Vector2(0, -20));
-            Points?.Add(new Vector2(30, -40));
-            Points?.Add(new Vector2(0, 40));
+            Points?.Add(new Vector2(-30f, -40f));
+            Points?.Add(new Vector2(0f, -20f));
+            Points?.Add(new Vector2(30f, -40f));
+            Points?.Add(new Vector2(0f, 40f));
 
             Collider.X = 60;
             Collider.Y = 80;
@@ -134,6 +134,11 @@ namespace Asteroids
 
         public void OnClick(MouseButtonEventArgs args)
         {
+            if (Bullet.State == BulletState.Hide)
+            {
+                MediaSystem.PlaySound("blasterShoot.wav");
+            }
+
             Bullet.Position.Angle = Bullet.State == BulletState.Hide ? Position.Angle : Bullet.Position.Angle;
             Bullet.State = args.Button == MouseButton.Left ? BulletState.Render : Bullet.State;
         }

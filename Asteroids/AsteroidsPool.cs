@@ -1,5 +1,4 @@
 ﻿using Core;
-using Logging;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using WindowAPI;

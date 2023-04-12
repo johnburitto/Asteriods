@@ -38,17 +38,19 @@ namespace Asteroids
             _asteroidsPool.InitItems(_numberOfAsteroids, _window);
             _asteroidsPool.Player = _player;
             _asteroidsPool.Bullet = _bullet;
-            
+
             _window.MouseDown += _player.OnClick;
 
             _window.OnUpdateFrameEvent += GameUtils.FPSCounter;
             _window.OnUpdateFrameEvent += _player.Update;
             _window.OnUpdateFrameEvent += _bullet.Update;
             _window.OnUpdateFrameEvent += _asteroidsPool.UpdateElements;
+            _window.OnUpdateFrameEvent += ParticleSystem.UpdatePaticles;
             _window.OnUpdateFrameEvent += NextLevel;
             _window.OnRenderFrameEvent += _player.Render;
             _window.OnRenderFrameEvent += _bullet.Render;
             _window.OnRenderFrameEvent += _asteroidsPool.RenderElements;
+            _window.OnRenderFrameEvent += ParticleSystem.RenderPaticles;
             _window.OnRenderFrameEvent += ShowScore;
         }
 

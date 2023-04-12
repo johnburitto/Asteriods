@@ -22,6 +22,8 @@ namespace Asteroids
                 Game.RestartLevel();
 
                 Game.Score -= 100;
+
+                MediaSystem.PlaySound("playerDeath.wav");
             }
         }
     }

@@ -36,6 +36,21 @@ namespace Core
             GL.End();
         }
 
+        public static void RenderPoints(GameObject obj, GameWindow window)
+        {
+            GL.Color3(Color.White);
+            GL.Begin(PrimitiveType.Points);
+
+            for (int i = 0; i < obj.Points?.Count; i++)
+            {
+                GL.Vertex2((obj.Position.X + obj.Points[i].X) / window.Size.X,
+                    (obj.Position.Y + obj.Points[i].Y) / window.Size.Y);
+            }
+
+            GL.End();
+        }
+
+
         public static void RenderCollider(Collider collider, Transform position, GameWindow window)
         {
             GL.Color3(Color.Green);

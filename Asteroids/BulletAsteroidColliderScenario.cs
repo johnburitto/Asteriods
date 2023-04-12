@@ -1,5 +1,4 @@
 ﻿using Core;
-using WindowAPI;
 
 namespace Asteroids
 {
@@ -24,7 +23,9 @@ namespace Asteroids
                 firstObj.State = BulletState.Hide;
                 secondObj.State = ItemState.Disable;
 
+                ParticleSystem.InitParticles(20, secondObj.Object.Position, 1);
                 Game.Score += 100;
+                MediaSystem.PlaySound("explosion.wav");
             }
         }
     }

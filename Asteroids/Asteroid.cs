@@ -25,12 +25,12 @@ namespace Asteroids
         {
             Position.Angle = new Random().Next(1, 3) * 0.00001f;
 
-            Points?.Add(new(-50, -100));
-            Points?.Add(new(50, -100));
-            Points?.Add(new(100, 0));
-            Points?.Add(new(50, 100));
-            Points?.Add(new(-50, 100));
-            Points?.Add(new(-100, 0));
+            Points?.Add(new(-50f, -100f));
+            Points?.Add(new(50f, -100f));
+            Points?.Add(new(100f, 0f));
+            Points?.Add(new(50f, 100f));
+            Points?.Add(new(-50f, 100f));
+            Points?.Add(new(-100f, 0f));
 
             Collider.X = 200;
             Collider.Y = 200;
