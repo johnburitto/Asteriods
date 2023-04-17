@@ -13,6 +13,12 @@ namespace Asteroids
 
         public static void InitParticles(int number, Transform position, int lifeTime)
         {
+            foreach (var el in _particles)
+            {
+                Game.Window.OnUpdateFrameEvent -= el.Update;
+                Game.Window.OnRenderFrameEvent -= el.Render;
+            }
+
             _particles.Clear();
 
             for (int i = 0; i < number; i++)

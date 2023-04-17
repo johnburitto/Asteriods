@@ -34,7 +34,9 @@ namespace WindowAPI
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             OnUpdateFrameEvent?.Invoke(this, args);
-            
+
+            Logger.Information($"{OnUpdateFrameEvent?.GetInvocationList().Length}");
+
             if (KeyboardState.IsKeyDown(Keys.Escape))
             {
                 Close();

@@ -1,4 +1,5 @@
 ﻿using Core;
+using Logging;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
@@ -23,7 +24,7 @@ namespace Asteroids
 
         protected override void Create()
         {
-            Position.Angle = new Random().Next(1, 3) * 0.00001f;
+            Position.Angle = new Random().Next(1, 5) * 0.01f;
 
             Points?.Add(new(-50f, -100f));
             Points?.Add(new(50f, -100f));

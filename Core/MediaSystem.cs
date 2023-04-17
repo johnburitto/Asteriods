@@ -1,5 +1,4 @@
 ﻿using NAudio.Wave;
-using System.Runtime.Versioning;
 
 namespace Core
 {

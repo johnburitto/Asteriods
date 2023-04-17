@@ -12,7 +12,6 @@ namespace Asteroids
         public float Speed { get; set; }
         public Vector2 SpeedVector { get; set; }
         public float _oldAngle;
-        public float _frameTime;
 
         public Bullet()
         {
@@ -40,7 +39,7 @@ namespace Asteroids
 
         public override void Update(GameWindow window, FrameEventArgs args)
         {
-            if (State == BulletState.Render)
+            if (State == BulletState.Rendering)
             {
                 SpeedVector = Physic2D.RotateVector(SpeedVector, Position.Angle, _oldAngle);
                 Animator.Rotate(this, ref _oldAngle);
@@ -51,7 +50,7 @@ namespace Asteroids
 
         public override void Render(GameWindow window)
         {
-            if (State == BulletState.Render)
+            if (State == BulletState.Rendering)
             {
                 PrimitiveRenderer.RenderLine(this, window);
             }
@@ -73,6 +72,6 @@ namespace Asteroids
     enum BulletState
     {
         Hide,
-        Render
+        Rendering
     }
 }

@@ -6,20 +6,20 @@ namespace Asteroids
 {
     internal class Game
     {
-        private static Window? _window;
+        public static Window? Window { get; private set; }
         private static Player? _player;
         private static Bullet? _bullet;
         private static AsteroidsPool? _asteroidsPool;
-        private static int _numberOfAsteroids = 3;
+        private static int _numberOfAsteroids = 1;
         public static int Score = 0;
-        public static int HightScore = 0;
+        public static int HightScore => int.Parse(File.ReadAllText("hightScore.txt"));
 
         public static void InitGame()
         {
             _player = new Player();
             _bullet = new Bullet();
             _asteroidsPool = new AsteroidsPool();
-            _window = new WindowBuilder()
+            Window = new WindowBuilder()
                 .WithSize(1920, 1080)
                 .WithWindowBorder(WindowBorder.Resizable)
                 .WithWindowState(WindowState.Fullscreen)
@@ -35,37 +35,35 @@ namespace Asteroids
             _bullet.Speed = 15;
             _player.Speed = 10;
             _player.Bullet = _bullet;
-            _asteroidsPool.InitItems(_numberOfAsteroids, _window);
+            _asteroidsPool.InitItems(_numberOfAsteroids, Window);
             _asteroidsPool.Player = _player;
             _asteroidsPool.Bullet = _bullet;
 
-            HightScore = Int32.Parse(File.ReadAllText("hightScore.txt"));
+            Window.MouseDown += _player.OnClick;
 
-            _window.MouseDown += _player.OnClick;
-
-            _window.OnUpdateFrameEvent += GameUtils.FPSCounter;
-            _window.OnUpdateFrameEvent += _player.Update;
-            _window.OnUpdateFrameEvent += _bullet.Update;
-            _window.OnUpdateFrameEvent += _asteroidsPool.UpdateElements;
-            _window.OnUpdateFrameEvent += ParticleSystem.UpdatePaticles;
-            _window.OnUpdateFrameEvent += NextLevel;
-            _window.OnRenderFrameEvent += _player.Render;
-            _window.OnRenderFrameEvent += _bullet.Render;
-            _window.OnRenderFrameEvent += _asteroidsPool.RenderElements;
-            _window.OnRenderFrameEvent += ParticleSystem.RenderPaticles;
-            _window.OnRenderFrameEvent += ShowScore;
-            _window.OnCloseEvent += SaveScore;
+            Window.OnUpdateFrameEvent += GameUtils.FPSCounter;
+            Window.OnUpdateFrameEvent += NextLevel;
+            Window.OnUpdateFrameEvent += _player.Update;
+            Window.OnUpdateFrameEvent += _bullet.Update;
+            Window.OnUpdateFrameEvent += _asteroidsPool.UpdateElements;
+            Window.OnUpdateFrameEvent += ParticleSystem.UpdatePaticles;
+            Window.OnRenderFrameEvent += _player.Render;
+            Window.OnRenderFrameEvent += _bullet.Render;
+            Window.OnRenderFrameEvent += _asteroidsPool.RenderElements;
+            Window.OnRenderFrameEvent += ParticleSystem.RenderPaticles;
+            Window.OnRenderFrameEvent += ShowScore;
+            Window.OnCloseEvent += SaveScore;
         }
 
         public static void StartGame()
         {
-            _window?.Run();
+            Window?.Run();
         }
 
         public static void RestartLevel()
         {
             _player?.RestartPlayer();
-            _asteroidsPool?.RestartPool(_window);
+            _asteroidsPool?.RestartPool(Window);
         }
 
         public static void NextLevel(Window window, FrameEventArgs args)
@@ -75,6 +73,7 @@ namespace Asteroids
                 _numberOfAsteroids++;
                 _player?.RestartPlayer();
                 _asteroidsPool?.RenderElements(window);
+                _asteroidsPool?.RestartPool(Window);
                 _asteroidsPool?.InitItems(_numberOfAsteroids, window);
             }
         }
@@ -87,7 +86,10 @@ namespace Asteroids
 
         public static void SaveScore()
         {
-            File.WriteAllText("hightScore.txt", Score.ToString());
+            if (Score > HightScore)
+            {
+                File.WriteAllText("hightScore.txt", Score.ToString());
+            }
         }
     }
 }

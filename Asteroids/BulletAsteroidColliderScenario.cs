@@ -6,6 +6,11 @@ namespace Asteroids
     {
         protected override void Scenario(Bullet firstObj, ObjectPoolItem<Asteroid> secondObj)
         {
+            if (firstObj.State != BulletState.Rendering && secondObj.State != ItemState.Rendering)
+            {
+                return;
+            }
+
             var firstMinX = firstObj.Collider.Points[0].X + firstObj.Position.X;
             var firstMinY = firstObj.Collider.Points[0].Y + firstObj.Position.Y;
             var firstMaxX = firstObj.Collider.Points[1].X + firstObj.Position.X;
@@ -17,8 +22,7 @@ namespace Asteroids
             var secondMaxY = secondObj.Object.Collider.Points[2].Y + secondObj.Object.Position.Y;
 
             if (firstMinX > secondMinX && firstMinX < secondMaxX && firstMinY > secondMinY && firstMinY < secondMaxY ||
-                firstMaxX > secondMinX && firstMaxX < secondMaxX && firstMaxY > secondMinY && firstMaxY < secondMaxY &&
-                firstObj.State == BulletState.Render)
+                firstMaxX > secondMinX && firstMaxX < secondMaxX && firstMaxY > secondMinY && firstMaxY < secondMaxY)
             {
                 firstObj.State = BulletState.Hide;
                 secondObj.State = ItemState.Disable;

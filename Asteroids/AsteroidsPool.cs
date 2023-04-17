@@ -1,4 +1,5 @@
 ﻿using Core;
+using Logging;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using WindowAPI;
@@ -24,19 +25,27 @@ namespace Asteroids
 
                 el.Object.Position.X = x < 150 && x > 0 ? x + 150 : x < 0 && x > -150 ? x - 150 : x;
                 el.Object.Position.Y = y < 150 && y > 0 ? y + 150 : y < 0 && y > -150 ? y - 150 : y;
+
+                el.State = ItemState.Enable;
             }
         }
 
         public void UpdateElements(Window window, FrameEventArgs args)
         {
-            foreach (var el in Pool)
-            {
-                window.OnUpdateFrameEvent += el.Object.Update;
-
+           foreach (var el in Pool)
+            {            
+                if (el.State == ItemState.Enable)
+                {
+                    window.OnUpdateFrameEvent += el.Object.Update;
+                }
                 if (el.State == ItemState.Rendering)
                 {
                     Physic2D.CheckColliding(_playerScenario, Player, el);
                     Physic2D.CheckColliding(_bulletScenario, Bullet, el);
+                }
+                if (el.State == ItemState.Disable)
+                {
+                    window.OnUpdateFrameEvent -= el.Object.Update;
                 }
             }
         }
@@ -61,9 +70,10 @@ namespace Asteroids
         {
             foreach (var el in Pool)
             {
-                el.State = ItemState.Enable;
-
+                window.OnUpdateFrameEvent -= el.Object.Update;
                 window.OnRenderFrameEvent -= el.Object.Render;
+
+                el.State = ItemState.Enable;
             }
         }
     }

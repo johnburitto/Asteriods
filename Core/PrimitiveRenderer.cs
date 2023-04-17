@@ -8,8 +8,6 @@ namespace Core
     {
         public static void RenderLineLoop(GameObject obj, GameWindow window)
         {
-            GL.MatrixMode(MatrixMode.Projection);
-
             GL.Color3(Color.White);
             GL.Begin(PrimitiveType.LineLoop);
 
@@ -49,7 +47,6 @@ namespace Core
 
             GL.End();
         }
-
 
         public static void RenderCollider(Collider collider, Transform position, GameWindow window)
         {

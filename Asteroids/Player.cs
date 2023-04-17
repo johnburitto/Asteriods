@@ -139,7 +139,7 @@ namespace Asteroids
             }
 
             Bullet.Position.Angle = Bullet.State == BulletState.Hide ? Position.Angle : Bullet.Position.Angle;
-            Bullet.State = args.Button == MouseButton.Left ? BulletState.Render : Bullet.State;
+            Bullet.State = args.Button == MouseButton.Left ? BulletState.Rendering : Bullet.State;
         }
     }
 }
